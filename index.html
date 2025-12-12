@@ -1,0 +1,763 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crypto Tools — Стеганография, Спектрограмма, Морзянка, QR</title>
+    <meta name="description"
+        content="Криптографические инструменты: скрытие текста в изображениях, создание спектрограмм, азбука Морзе и QR-коды">
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <div class="container">
+        <header class="header">
+            <h1 class="logo">
+                <span class="icon">
+                    <svg viewBox="0 0 24 24">
+                        <rect x="3" y="11" width="18" height="11" rx="2" />
+                        <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+                    </svg>
+                </span>
+                Crypto Tools
+            </h1>
+            <p class="tagline">Стеганография • Спектрограмма • Морзянка • QR</p>
+        </header>
+
+        <nav class="tabs">
+            <button class="tab active" data-tab="stegano">
+                <span class="tab-icon">
+                    <svg viewBox="0 0 24 24">
+                        <rect x="3" y="3" width="18" height="18" rx="2" />
+                        <circle cx="8.5" cy="8.5" r="1.5" />
+                        <path d="m21 15-5-5L5 21" />
+                    </svg>
+                </span>
+                <span class="tab-text">Стеганография</span>
+            </button>
+            <button class="tab" data-tab="spectro">
+                <span class="tab-icon">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M9 18V5l12-2v13" />
+                        <circle cx="6" cy="18" r="3" />
+                        <circle cx="18" cy="16" r="3" />
+                    </svg>
+                </span>
+                <span class="tab-text">Спектрограмма</span>
+            </button>
+            <button class="tab" data-tab="morse">
+                <span class="tab-icon">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M4.9 19.1C1 15.2 1 8.8 4.9 4.9" />
+                        <path d="M7.8 16.2c-2.3-2.3-2.3-6.1 0-8.5" />
+                        <circle cx="12" cy="12" r="2" />
+                        <path d="M16.2 7.8c2.3 2.3 2.3 6.1 0 8.5" />
+                        <path d="M19.1 4.9C23 8.8 23 15.1 19.1 19" />
+                    </svg>
+                </span>
+                <span class="tab-text">Морзянка</span>
+            </button>
+            <button class="tab" data-tab="qrcode">
+                <span class="tab-icon">
+                    <svg viewBox="0 0 24 24">
+                        <rect x="3" y="3" width="7" height="7" />
+                        <rect x="14" y="3" width="7" height="7" />
+                        <rect x="3" y="14" width="7" height="7" />
+                        <rect x="14" y="14" width="3" height="3" />
+                        <rect x="18" y="14" width="3" height="3" />
+                        <rect x="14" y="18" width="3" height="3" />
+                        <rect x="18" y="18" width="3" height="3" />
+                    </svg>
+                </span>
+                <span class="tab-text">QR-код</span>
+            </button>
+        </nav>
+
+        <!-- Стеганография -->
+        <section class="panel active" id="stegano">
+            <div class="panel-header">
+                <h2>
+                    <span class="header-icon">
+                        <svg viewBox="0 0 24 24">
+                            <rect x="3" y="3" width="18" height="18" rx="2" />
+                            <circle cx="8.5" cy="8.5" r="1.5" />
+                            <path d="m21 15-5-5L5 21" />
+                        </svg>
+                    </span>
+                    Стеганография
+                </h2>
+                <p>Скрой секретный текст внутри изображения</p>
+            </div>
+
+            <div class="mode-switch">
+                <button class="mode-btn active" data-mode="encode"><span>Закодировать</span></button>
+                <button class="mode-btn" data-mode="decode"><span>Декодировать</span></button>
+            </div>
+
+            <div class="stegano-content">
+                <div class="encode-section">
+                    <div class="drop-zone" id="stegano-drop">
+                        <div class="drop-icon">
+                            <svg viewBox="0 0 24 24">
+                                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                                <polyline points="17 8 12 3 7 8" />
+                                <line x1="12" y1="3" x2="12" y2="15" />
+                            </svg>
+                        </div>
+                        <p>Перетащи изображение или <span class="browse">выбери файл</span></p>
+                        <input type="file" id="stegano-input" accept="image/*" hidden>
+                    </div>
+                    <div class="preview-container" id="stegano-preview" style="display: none;">
+                        <img id="stegano-img" src="" alt="Preview">
+                        <button class="clear-btn" id="stegano-clear">
+                            <svg viewBox="0 0 24 24">
+                                <line x1="18" y1="6" x2="6" y2="18" />
+                                <line x1="6" y1="6" x2="18" y2="18" />
+                            </svg>
+                        </button>
+                    </div>
+
+                    <div class="encode-controls" id="encode-controls">
+                        <textarea id="secret-text" placeholder="Введи секретный текст для скрытия..."></textarea>
+                        <button class="action-btn" id="encode-btn">
+                            <span class="btn-icon">
+                                <svg viewBox="0 0 24 24">
+                                    <rect x="3" y="11" width="18" height="11" rx="2" />
+                                    <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+                                </svg>
+                            </span>
+                            Закодировать
+                        </button>
+                    </div>
+
+                    <div class="decode-controls" id="decode-controls" style="display: none;">
+                        <button class="action-btn" id="decode-btn">
+                            <span class="btn-icon">
+                                <svg viewBox="0 0 24 24">
+                                    <rect x="3" y="11" width="18" height="11" rx="2" />
+                                    <path d="M7 11V7a5 5 0 0 1 5-5 5 5 0 0 1 5 5" />
+                                </svg>
+                            </span>
+                            Декодировать
+                        </button>
+                        <div class="result-box" id="decode-result" style="display: none;">
+                            <h4>Скрытый текст:</h4>
+                            <p id="decoded-text"></p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="result-section" id="stegano-result" style="display: none;">
+                    <h3>
+                        <span class="success-icon">
+                            <svg viewBox="0 0 24 24">
+                                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
+                                <polyline points="22 4 12 14.01 9 11.01" />
+                            </svg>
+                        </span>
+                        Готово!
+                    </h3>
+                    <canvas id="stegano-canvas"></canvas>
+                    <button class="download-btn" id="download-stegano">
+                        <span class="btn-icon">
+                            <svg viewBox="0 0 24 24">
+                                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                                <polyline points="7 10 12 15 17 10" />
+                                <line x1="12" y1="15" x2="12" y2="3" />
+                            </svg>
+                        </span>
+                        Скачать изображение
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Спектрограмма -->
+        <section class="panel" id="spectro">
+            <div class="panel-header">
+                <h2>
+                    <span class="header-icon">
+                        <svg viewBox="0 0 24 24">
+                            <path d="M9 18V5l12-2v13" />
+                            <circle cx="6" cy="18" r="3" />
+                            <circle cx="18" cy="16" r="3" />
+                        </svg>
+                    </span>
+                    Спектрограмма
+                </h2>
+                <p>Преобразуй изображение в звук и обратно</p>
+            </div>
+
+            <div class="mode-switch">
+                <button class="mode-btn active" data-spectro-mode="encode"><span>Картинка → WAV</span></button>
+                <button class="mode-btn" data-spectro-mode="decode"><span>WAV → Картинка</span></button>
+            </div>
+
+            <!-- Encode Mode: Image to WAV -->
+            <div class="spectro-mode-panel" id="spectro-encode">
+                <div class="drop-zone" id="spectro-drop">
+                    <div class="drop-icon">
+                        <svg viewBox="0 0 24 24">
+                            <rect x="3" y="3" width="18" height="18" rx="2" />
+                            <circle cx="8.5" cy="8.5" r="1.5" />
+                            <path d="m21 15-5-5L5 21" />
+                        </svg>
+                    </div>
+                    <p>Перетащи изображение или <span class="browse">выбери файл</span></p>
+                    <input type="file" id="spectro-input" accept="image/*" hidden>
+                </div>
+                <div class="preview-container" id="spectro-preview" style="display: none;">
+                    <img id="spectro-img" src="" alt="Preview">
+                    <button class="clear-btn" id="spectro-clear">
+                        <svg viewBox="0 0 24 24">
+                            <line x1="18" y1="6" x2="6" y2="18" />
+                            <line x1="6" y1="6" x2="18" y2="18" />
+                        </svg>
+                    </button>
+                </div>
+
+                <div class="spectro-settings">
+                    <div class="setting-group">
+                        <label>Длительность (сек)</label>
+                        <input type="number" id="spectro-duration" value="5" min="1" max="30">
+                    </div>
+                    <div class="setting-group">
+                        <label>Мин. частота (Hz)</label>
+                        <input type="number" id="spectro-min-freq" value="200" min="20" max="1000">
+                    </div>
+                    <div class="setting-group">
+                        <label>Макс. частота (Hz)</label>
+                        <input type="number" id="spectro-max-freq" value="8000" min="1000" max="20000">
+                    </div>
+                </div>
+
+                <button class="action-btn" id="spectro-convert">
+                    <span class="btn-icon">
+                        <svg viewBox="0 0 24 24">
+                            <path d="M9 18V5l12-2v13" />
+                            <circle cx="6" cy="18" r="3" />
+                            <circle cx="18" cy="16" r="3" />
+                        </svg>
+                    </span>
+                    Конвертировать в WAV
+                </button>
+
+                <div class="result-section" id="spectro-result" style="display: none;">
+                    <h3>
+                        <span class="success-icon">
+                            <svg viewBox="0 0 24 24">
+                                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
+                                <polyline points="22 4 12 14.01 9 11.01" />
+                            </svg>
+                        </span>
+                        Аудио готово!
+                    </h3>
+                    <audio id="spectro-audio" controls></audio>
+                    <button class="download-btn" id="download-spectro">
+                        <span class="btn-icon">
+                            <svg viewBox="0 0 24 24">
+                                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                                <polyline points="7 10 12 15 17 10" />
+                                <line x1="12" y1="15" x2="12" y2="3" />
+                            </svg>
+                        </span>
+                        Скачать WAV
+                    </button>
+                </div>
+            </div>
+
+            <!-- Decode Mode: WAV to Image -->
+            <div class="spectro-mode-panel" id="spectro-decode" style="display: none;">
+                <div class="drop-zone" id="spectro-wav-drop">
+                    <div class="drop-icon">
+                        <svg viewBox="0 0 24 24">
+                            <path d="M9 18V5l12-2v13" />
+                            <circle cx="6" cy="18" r="3" />
+                            <circle cx="18" cy="16" r="3" />
+                        </svg>
+                    </div>
+                    <p>Перетащи WAV файл или <span class="browse">выбери файл</span></p>
+                    <input type="file" id="spectro-wav-input" accept="audio/*,.wav" hidden>
+                </div>
+                <div class="audio-preview" id="spectro-wav-preview" style="display: none;">
+                    <audio id="spectro-wav-player" controls></audio>
+                    <button class="clear-btn" id="spectro-wav-clear">
+                        <svg viewBox="0 0 24 24">
+                            <line x1="18" y1="6" x2="6" y2="18" />
+                            <line x1="6" y1="6" x2="18" y2="18" />
+                        </svg>
+                    </button>
+                </div>
+
+                <div class="spectro-settings">
+                    <div class="setting-group">
+                        <label>Мин. частота (Hz)</label>
+                        <input type="number" id="decode-min-freq" value="200" min="20" max="1000">
+                    </div>
+                    <div class="setting-group">
+                        <label>Макс. частота (Hz)</label>
+                        <input type="number" id="decode-max-freq" value="8000" min="1000" max="20000">
+                    </div>
+                    <div class="setting-group">
+                        <label>Разрешение</label>
+                        <select id="decode-resolution">
+                            <option value="256">256px</option>
+                            <option value="512" selected>512px</option>
+                            <option value="1024">1024px (HD)</option>
+                            <option value="2048">2048px (Ultra)</option>
+                        </select>
+                    </div>
+                    <div class="setting-group">
+                        <label>Цветовая схема</label>
+                        <select id="spectro-colorscheme">
+                            <option value="grayscale">Чёрно-белый</option>
+                            <option value="heat" selected>Тепловой</option>
+                            <option value="green">Зелёный</option>
+                            <option value="blue">Синий</option>
+                            <option value="purple">Фиолетовый</option>
+                        </select>
+                    </div>
+                </div>
+
+                <button class="action-btn" id="spectro-decode-btn">
+                    <span class="btn-icon">
+                        <svg viewBox="0 0 24 24">
+                            <rect x="3" y="3" width="18" height="18" rx="2" />
+                            <circle cx="8.5" cy="8.5" r="1.5" />
+                            <path d="m21 15-5-5L5 21" />
+                        </svg>
+                    </span>
+                    Извлечь изображение
+                </button>
+
+                <div class="progress-container" id="spectro-progress" style="display: none;">
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="spectro-progress-fill"></div>
+                    </div>
+                    <p class="progress-text" id="spectro-progress-text">Обработка: 0%</p>
+                </div>
+
+                <div class="result-section" id="spectro-decode-result" style="display: none;">
+                    <h3>
+                        <span class="success-icon">
+                            <svg viewBox="0 0 24 24">
+                                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
+                                <polyline points="22 4 12 14.01 9 11.01" />
+                            </svg>
+                        </span>
+                        Изображение извлечено!
+                    </h3>
+                    <canvas id="spectro-decode-canvas"></canvas>
+                    <button class="download-btn" id="download-decoded-img">
+                        <span class="btn-icon">
+                            <svg viewBox="0 0 24 24">
+                                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                                <polyline points="7 10 12 15 17 10" />
+                                <line x1="12" y1="15" x2="12" y2="3" />
+                            </svg>
+                        </span>
+                        Скачать изображение
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Морзянка -->
+        <section class="panel" id="morse">
+            <div class="panel-header">
+                <h2>
+                    <span class="header-icon">
+                        <svg viewBox="0 0 24 24">
+                            <path d="M4.9 19.1C1 15.2 1 8.8 4.9 4.9" />
+                            <path d="M7.8 16.2c-2.3-2.3-2.3-6.1 0-8.5" />
+                            <circle cx="12" cy="12" r="2" />
+                            <path d="M16.2 7.8c2.3 2.3 2.3 6.1 0 8.5" />
+                            <path d="M19.1 4.9C23 8.8 23 15.1 19.1 19" />
+                        </svg>
+                    </span>
+                    Азбука Морзе
+                </h2>
+                <p>Кодирование, декодирование и распознавание</p>
+            </div>
+
+            <div class="morse-tabs">
+                <button class="morse-tab active" data-morse="text-to-morse">Текст → Морзе</button>
+                <button class="morse-tab" data-morse="morse-to-text">Морзе → Текст</button>
+                <button class="morse-tab" data-morse="audio-decode">Аудио → Текст</button>
+            </div>
+
+            <div class="morse-content">
+                <!-- Текст → Морзе -->
+                <div class="morse-panel active" id="text-to-morse">
+                    <textarea id="text-input"
+                        placeholder="Введи текст для конвертации в морзянку (только латиница A-Z, 0-9)..."></textarea>
+                    <button class="action-btn" id="to-morse-btn">
+                        <span class="btn-icon">
+                            <svg viewBox="0 0 24 24">
+                                <path d="M4.9 19.1C1 15.2 1 8.8 4.9 4.9" />
+                                <path d="M7.8 16.2c-2.3-2.3-2.3-6.1 0-8.5" />
+                                <circle cx="12" cy="12" r="2" />
+                                <path d="M16.2 7.8c2.3 2.3 2.3 6.1 0 8.5" />
+                                <path d="M19.1 4.9C23 8.8 23 15.1 19.1 19" />
+                            </svg>
+                        </span>
+                        Конвертировать
+                    </button>
+                    <div class="result-box" id="morse-output-box" style="display: none;">
+                        <h4>Морзянка:</h4>
+                        <p id="morse-output" class="morse-text"></p>
+                        <div class="morse-visualizer" id="morse-visualizer-container">
+                            <div class="visualizer-controls">
+                                <button class="ctrl-btn" id="morse-zoom-out" title="Уменьшить">−</button>
+                                <input type="range" id="morse-zoom" min="1" max="10" value="1" step="0.5">
+                                <button class="ctrl-btn" id="morse-zoom-in" title="Увеличить">+</button>
+                                <span class="zoom-label" id="morse-zoom-label">100%</span>
+                            </div>
+                            <div class="canvas-wrapper" id="morse-canvas-wrapper">
+                                <canvas id="morse-canvas"></canvas>
+                            </div>
+                            <div class="pan-controls">
+                                <button class="ctrl-btn" id="morse-pan-left" title="Влево">◀</button>
+                                <input type="range" id="morse-pan" min="0" max="100" value="0">
+                                <button class="ctrl-btn" id="morse-pan-right" title="Вправо">▶</button>
+                            </div>
+                        </div>
+                        <div class="play-controls">
+                            <button class="play-btn" id="play-morse">
+                                <span class="btn-icon">
+                                    <svg viewBox="0 0 24 24">
+                                        <polygon points="5 3 19 12 5 21 5 3" />
+                                    </svg>
+                                </span>
+                                Воспроизвести
+                            </button>
+                            <button class="play-btn stop-btn" id="stop-morse" style="display: none;">
+                                <span class="btn-icon">
+                                    <svg viewBox="0 0 24 24">
+                                        <rect x="6" y="4" width="4" height="16" />
+                                        <rect x="14" y="4" width="4" height="16" />
+                                    </svg>
+                                </span>
+                                Стоп
+                            </button>
+                            <button class="play-btn download-morse-btn" id="download-morse-audio">
+                                <span class="btn-icon">
+                                    <svg viewBox="0 0 24 24">
+                                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                                        <polyline points="7 10 12 15 17 10" />
+                                        <line x1="12" y1="15" x2="12" y2="3" />
+                                    </svg>
+                                </span>
+                                Скачать WAV
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Морзе → Текст -->
+                <div class="morse-panel" id="morse-to-text">
+                    <textarea id="morse-input"
+                        placeholder="Введи морзянку (. и -, буквы через пробел, слова через /)..."></textarea>
+                    <button class="action-btn" id="from-morse-btn">
+                        <span class="btn-icon">
+                            <svg viewBox="0 0 24 24">
+                                <path d="M17 3a2.85 2.85 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z" />
+                            </svg>
+                        </span>
+                        Декодировать
+                    </button>
+                    <div class="result-box" id="text-output-box" style="display: none;">
+                        <h4>Текст:</h4>
+                        <p id="text-output"></p>
+                    </div>
+                </div>
+
+                <!-- Аудио → Текст -->
+                <div class="morse-panel" id="audio-decode">
+                    <div class="drop-zone" id="morse-audio-drop">
+                        <div class="drop-icon">
+                            <svg viewBox="0 0 24 24">
+                                <path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z" />
+                                <path d="M19 10v2a7 7 0 0 1-14 0v-2" />
+                                <line x1="12" y1="19" x2="12" y2="22" />
+                            </svg>
+                        </div>
+                        <p>Перетащи аудио файл или <span class="browse">выбери файл</span></p>
+                        <input type="file" id="morse-audio-input" accept="audio/*" hidden>
+                    </div>
+                    <div class="audio-preview" id="morse-audio-preview" style="display: none;">
+                        <audio id="morse-audio-player" controls></audio>
+                        <button class="clear-btn" id="morse-audio-clear">
+                            <svg viewBox="0 0 24 24">
+                                <line x1="18" y1="6" x2="6" y2="18" />
+                                <line x1="6" y1="6" x2="18" y2="18" />
+                            </svg>
+                        </button>
+                    </div>
+                    <button class="action-btn" id="decode-audio-btn">
+                        <span class="btn-icon">
+                            <svg viewBox="0 0 24 24">
+                                <circle cx="11" cy="11" r="8" />
+                                <path d="m21 21-4.3-4.3" />
+                            </svg>
+                        </span>
+                        Распознать морзянку
+                    </button>
+                    <div class="result-box" id="audio-result-box" style="display: none;">
+                        <h4>Визуализация сигнала:</h4>
+                        <div class="morse-waveform" id="morse-waveform-container">
+                            <div class="visualizer-controls">
+                                <button class="ctrl-btn" id="waveform-zoom-out" title="Уменьшить">−</button>
+                                <input type="range" id="waveform-zoom" min="1" max="10" value="1" step="0.5">
+                                <button class="ctrl-btn" id="waveform-zoom-in" title="Увеличить">+</button>
+                                <span class="zoom-label" id="waveform-zoom-label">100%</span>
+                            </div>
+                            <div class="canvas-wrapper" id="waveform-canvas-wrapper">
+                                <canvas id="morse-waveform-canvas"></canvas>
+                            </div>
+                            <div class="pan-controls">
+                                <button class="ctrl-btn" id="waveform-pan-left" title="Влево">◀</button>
+                                <input type="range" id="waveform-pan" min="0" max="100" value="0">
+                                <button class="ctrl-btn" id="waveform-pan-right" title="Вправо">▶</button>
+                            </div>
+                        </div>
+                        <h4>Распознано:</h4>
+                        <p id="audio-morse-output" class="morse-text"></p>
+                        <p id="audio-text-output"></p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="morse-reference">
+                <h4>Справочник:</h4>
+                <div class="morse-table" id="morse-table"></div>
+            </div>
+        </section>
+
+        <!-- QR-код -->
+        <section class="panel" id="qrcode">
+            <div class="panel-header">
+                <h2>
+                    <span class="header-icon">
+                        <svg viewBox="0 0 24 24">
+                            <rect x="3" y="3" width="7" height="7" />
+                            <rect x="14" y="3" width="7" height="7" />
+                            <rect x="3" y="14" width="7" height="7" />
+                            <rect x="14" y="14" width="3" height="3" />
+                            <rect x="18" y="14" width="3" height="3" />
+                            <rect x="14" y="18" width="3" height="3" />
+                            <rect x="18" y="18" width="3" height="3" />
+                        </svg>
+                    </span>
+                    QR-код генератор
+                </h2>
+                <p>Создай или сканируй QR-код</p>
+            </div>
+
+            <div class="mode-switch">
+                <button class="mode-btn active" data-qrmode="create"><span>Создать</span></button>
+                <button class="mode-btn" data-qrmode="scan"><span>Сканировать</span></button>
+            </div>
+
+            <div class="qr-generator" id="qr-create-panel">
+                <div class="qr-input-section">
+                    <div class="setting-group">
+                        <label>Содержимое</label>
+                        <textarea id="qr-content" placeholder="Текст, ссылка или любые данные..."></textarea>
+                    </div>
+
+                    <div class="qr-settings">
+                        <div class="setting-group">
+                            <label>Стиль точек</label>
+                            <select id="qr-dot-style">
+                                <option value="square">Квадратные</option>
+                                <option value="rounded">Округлённые</option>
+                                <option value="dots">Круглые</option>
+                                <option value="classy">Классические</option>
+                                <option value="extra-rounded">Очень округлённые</option>
+                            </select>
+                        </div>
+                        <div class="setting-group">
+                            <label>Размер (px)</label>
+                            <select id="qr-size">
+                                <option value="200">200px</option>
+                                <option value="300" selected>300px</option>
+                                <option value="400">400px</option>
+                                <option value="500">500px (HD)</option>
+                            </select>
+                        </div>
+                        <div class="setting-group">
+                            <label>Стиль углов</label>
+                            <select id="qr-corner-style">
+                                <option value="square">Квадратные</option>
+                                <option value="extra-rounded">Округлённые</option>
+                                <option value="dot">Точечные</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="qr-colors">
+                        <div class="setting-group">
+                            <label>Цвет точек</label>
+                            <input type="color" id="qr-dot-color" value="#000000">
+                        </div>
+                        <div class="setting-group">
+                            <label>Цвет фона</label>
+                            <input type="color" id="qr-bg-color" value="#ffffff">
+                        </div>
+                        <div class="setting-group">
+                            <label>Градиент</label>
+                            <select id="qr-gradient">
+                                <option value="none">Без градиента</option>
+                                <option value="linear">Линейный</option>
+                                <option value="radial">Радиальный</option>
+                            </select>
+                        </div>
+                        <div class="setting-group" id="qr-gradient-color-group" style="display: none;">
+                            <label>Второй цвет</label>
+                            <input type="color" id="qr-gradient-color" value="#6366f1">
+                        </div>
+                    </div>
+
+                    <div class="qr-logo-section">
+                        <label>Логотип в центре (опционально)</label>
+                        <div class="logo-upload">
+                            <div class="drop-zone small" id="qr-logo-drop">
+                                <p>
+                                    <span class="btn-icon"
+                                        style="display: inline-flex; vertical-align: middle; margin-right: 0.5rem;">
+                                        <svg viewBox="0 0 24 24"
+                                            style="width: 18px; height: 18px; stroke: currentColor; stroke-width: 2; fill: none;">
+                                            <rect x="3" y="3" width="18" height="18" rx="2" />
+                                            <circle cx="8.5" cy="8.5" r="1.5" />
+                                            <path d="m21 15-5-5L5 21" />
+                                        </svg>
+                                    </span>
+                                    Добавить логотип
+                                </p>
+                                <input type="file" id="qr-logo-input" accept="image/*" hidden>
+                            </div>
+                            <div class="logo-preview" id="qr-logo-preview" style="display: none;">
+                                <img id="qr-logo-img" src="" alt="Logo">
+                                <button class="clear-btn" id="qr-logo-clear">
+                                    <svg viewBox="0 0 24 24">
+                                        <line x1="18" y1="6" x2="6" y2="18" />
+                                        <line x1="6" y1="6" x2="18" y2="18" />
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button class="action-btn" id="generate-qr">
+                        <span class="btn-icon">
+                            <svg viewBox="0 0 24 24">
+                                <path
+                                    d="M12 3v3m6.366-.366-2.12 2.12M21 12h-3m.366 6.366-2.12-2.12M12 21v-3m-6.366.366 2.12-2.12M3 12h3m-.366-6.366 2.12 2.12" />
+                            </svg>
+                        </span>
+                        Сгенерировать QR
+                    </button>
+                </div>
+
+                <div class="qr-result-section" id="qr-result" style="display: none;">
+                    <h3>Твой QR-код:</h3>
+                    <div class="qr-display">
+                        <canvas id="qr-canvas"></canvas>
+                    </div>
+                    <div class="qr-actions">
+                        <button class="download-btn" id="download-qr-png">
+                            <span class="btn-icon">
+                                <svg viewBox="0 0 24 24">
+                                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                                    <polyline points="7 10 12 15 17 10" />
+                                    <line x1="12" y1="15" x2="12" y2="3" />
+                                </svg>
+                            </span>
+                            Скачать PNG
+                        </button>
+                        <button class="download-btn" id="download-qr-svg">
+                            <span class="btn-icon">
+                                <svg viewBox="0 0 24 24">
+                                    <path
+                                        d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z" />
+                                </svg>
+                            </span>
+                            Скачать SVG
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="qr-generator" id="qr-scan-panel" style="display: none;">
+                <div class="qr-input-section" style="width: 100%; max-width: 600px; margin: 0 auto;">
+                    <div class="drop-zone" id="qr-scan-drop">
+                        <div class="drop-icon">
+                            <svg viewBox="0 0 24 24">
+                                <path
+                                    d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z" />
+                                <circle cx="12" cy="13" r="4" />
+                            </svg>
+                        </div>
+                        <p>Перетащи QR-код сюда или <span class="browse">выбери файл</span></p>
+                        <input type="file" id="qr-scan-input" accept="image/*" hidden>
+                    </div>
+
+                    <div class="scan-preview" id="qr-scan-preview-box" style="display: none;">
+                        <img id="qr-scan-img"
+                            style="max-width: 100%; max-height: 300px; border-radius: 8px; margin-bottom: 1rem;">
+                        <button class="action-btn" id="scan-qr-btn">
+                            <span class="btn-icon">
+                                <svg viewBox="0 0 24 24">
+                                    <circle cx="11" cy="11" r="8" />
+                                    <path d="m21 21-4.3-4.3" />
+                                </svg>
+                            </span>
+                            Сканировать
+                        </button>
+                    </div>
+
+                    <div class="result-box" id="qr-scan-result" style="display: none;">
+                        <h4>Результат сканирования:</h4>
+                        <p id="qr-scan-text" class="code-output" style="word-break: break-all;"></p>
+                        <div class="qr-actions" id="qr-scan-actions">
+                            <button class="action-btn small" id="qr-copy-btn">
+                                <span class="btn-icon">
+                                    <svg viewBox="0 0 24 24">
+                                        <rect x="9" y="9" width="13" height="13" rx="2" />
+                                        <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
+                                    </svg>
+                                </span>
+                                Копировать
+                            </button>
+                            <a href="#" target="_blank" class="action-btn small" id="qr-open-link"
+                                style="display: none; text-decoration: none;">
+                                <span class="btn-icon">
+                                    <svg viewBox="0 0 24 24">
+                                        <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
+                                        <polyline points="15 3 21 3 21 9" />
+                                        <line x1="10" y1="14" x2="21" y2="3" />
+                                    </svg>
+                                </span>
+                                Открыть ссылку
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+    </div>
+    </section>
+    </div>
+
+    <!-- QR Code Libraries -->
+    <script src="https://unpkg.com/qr-code-styling@1.5.0/lib/qr-code-styling.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jsqr@1.4.0/dist/jsQR.min.js"></script>
+    <script src="app.js"></script>
+</body>
+
+</html>
