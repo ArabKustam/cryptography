@@ -2,7 +2,7 @@
 
 > Набор криптографических инструментов: стеганография, спектрограмма, азбука Морзе и QR-коды
 
-[![GitHub Pages](https://img.shields.io/badge/demo-live-brightgreen)](https://markdip.github.io/cryptography/)
+[![GitHub Pages](https://img.shields.io/badge/demo-live-brightgreen)](https://ArabKustam.github.io/cryptography/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 
 ## ✨ Возможности
@@ -36,7 +36,7 @@
 
 1. Клонируйте репозиторий:
 ```bash
-git clone https://github.com/markdip/cryptography.git
+git clone https://github.com/ArabKustam/cryptography.git
 cd cryptography
 ```
 
@@ -98,3 +98,4 @@ MIT License — свободное использование, модифика�
 <p align="center">
   Made with ❤️ using vanilla JavaScript
 </p>
+
