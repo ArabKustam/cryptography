@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crypto Tools — Стеганография, Спектрограмма, Морзянка, QR</title>
+    <meta name="description"
+        content="Криптографические инструменты: скрытие текста в изображениях, создание спектрограмм, азбука Морзе и QR-коды">
+    <!-- Modular CSS -->
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/modules/morse.css">
+    <link rel="stylesheet" href="css/modules/qrcode.css">
+    <link rel="stylesheet" href="css/modules/editor.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="app-container">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h1 class="logo">
+                    <span class="icon">
+                        <svg viewBox="0 0 24 24">
+                            <rect x="3" y="11" width="18" height="11" rx="2" />
+                            <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+                        </svg>
+                    </span>
+                    Crypto
+                </h1>
+                <p class="tagline">Cryptography Toolkit</p>
+            </div>
+            <nav class="nav-menu">
+            <a href="index.html" class="nav-item" data-tab="stegano">
+                <span class="nav-icon"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2" /><circle cx="8.5" cy="8.5" r="1.5" /><path d="m21 15-5-5L5 21" /></svg></span>
+                <span class="nav-text">Стеганография</span>
+            </a>
+            <a href="spectro.html" class="nav-item" data-tab="spectro">
+                <span class="nav-icon"><svg viewBox="0 0 24 24"><path d="M9 18V5l12-2v13" /><circle cx="6" cy="18" r="3" /><circle cx="18" cy="16" r="3" /></svg></span>
+                <span class="nav-text">Спектрограмма</span>
+            </a>
+            <a href="morse.html" class="nav-item" data-tab="morse">
+                <span class="nav-icon"><svg viewBox="0 0 24 24"><path d="M4.9 19.1C1 15.2 1 8.8 4.9 4.9" /><path d="M7.8 16.2c-2.3-2.3-2.3-6.1 0-8.5" /><circle cx="12" cy="12" r="2" /><path d="M16.2 7.8c2.3 2.3 2.3 6.1 0 8.5" /><path d="M19.1 4.9C23 8.8 23 15.1 19.1 19" /></svg></span>
+                <span class="nav-text">Морзянка</span>
+            </a>
+            <a href="qrcode.html" class="nav-item" data-tab="qrcode">
+                <span class="nav-icon"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" /><rect x="14" y="3" width="7" height="7" /><rect x="3" y="14" width="7" height="7" /><rect x="14" y="14" width="3" height="3" /><rect x="18" y="14" width="3" height="3" /><rect x="14" y="18" width="3" height="3" /><rect x="18" y="18" width="3" height="3" /></svg></span>
+                <span class="nav-text">QR-код</span>
+            </a>
+            <a href="base.html" class="nav-item" data-tab="base">
+                <span class="nav-icon"><svg viewBox="0 0 24 24"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></span>
+                <span class="nav-text">Base</span>
+            </a>
+            <a href="ciphers.html" class="nav-item" data-tab="ciphers">
+                <span class="nav-icon"><svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg></span>
+                <span class="nav-text">Шифры</span>
+            </a>
+            <a href="editor.html" class="nav-item active" data-tab="editor">
+                <span class="nav-icon"><svg viewBox="0 0 24 24"><path d="M12 20h9M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg></span>
+                <span class="nav-text">Редактор</span>
+            </a>
+                        <a href="metadata.html" class="nav-item" data-tab="metadata">
+                <span class="nav-icon"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg></span>
+                <span class="nav-text">Метаданные</span>
+            </a>
+</nav>
+        </aside>
+        <main class="main-content">
+            <section class="panel active" id="editor">
+            <div class="panel-header">
+                <h2>
+                    <span class="header-icon">
+                        <svg viewBox="0 0 24 24">
+                            <path d="M12 20h9M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/>
+                        </svg>
+                    </span>
+                    Редактор Изображений
+                </h2>
+                <p>Экстремальные фильтры, цветокоррекция и распознавание текста (OCR)</p>
+            </div>
+
+            <div class="editor-layout">
+                <div class="editor-main">
+                    <div class="drop-zone" id="editor-drop">
+                        <div class="drop-icon">
+                            <svg viewBox="0 0 24 24">
+                                <rect x="3" y="3" width="18" height="18" rx="2" />
+                                <circle cx="8.5" cy="8.5" r="1.5" />
+                                <path d="m21 15-5-5L5 21" />
+                            </svg>
+                        </div>
+                        <p>Перетащи изображение, нажми Ctrl+V или <span class="browse">выбери файл</span></p>
+                        <input type="file" id="editor-input" accept="image/*" hidden>
+                    </div>
+
+                    <div class="canvas-container" id="editor-canvas-container" style="display: none; position: relative; background: var(--bg-primary); border-radius: var(--radius-sm); border: 1px solid var(--border-color); height: 60vh; overflow: hidden; cursor: default;">
+                        <div id="canvas-wrapper" style="position: absolute; top: 0; left: 0; transform-origin: 0 0;">
+                            <canvas id="editor-canvas" style="display: block;"></canvas>
+                            <canvas id="crop-canvas" style="position: absolute; top: 0; left: 0; cursor: crosshair; display: none;"></canvas>
+                        </div>
+                        <div id="zoom-indicator" style="position: absolute; bottom: 12px; right: 12px; background: rgba(0,0,0,0.7); color: #fff; padding: 4px 10px; border-radius: 6px; font-size: 0.75rem; font-weight: 600; pointer-events: none; z-index: 10; opacity: 0; transition: opacity 0.3s;">100%</div>
+                    </div>
+                    <div id="crop-controls" style="display: none; justify-content: center; gap: 1rem; margin-top: 1rem;">
+                        <button class="action-btn small" id="btn-crop-apply">Применить обрезку</button>
+                        <button class="action-btn small" id="btn-crop-cancel" style="background: var(--bg-tertiary); color: var(--text-primary); border: 1px solid var(--border-color);">Отмена</button>
+                    </div>
+                </div>
+                <div class="editor-sidebar" id="editor-sidebar" style="display: none;">
+                    <div class="editor-controls">
+                        <div class="setting-group">
+                            <label>Яркость: <span id="val-bright">100</span>%</label>
+                            <input type="range" id="edit-brightness" min="0" max="5000" value="100" step="1">
+                        </div>
+                        <div class="setting-group">
+                            <label>Контраст: <span id="val-contrast">100</span>%</label>
+                            <input type="range" id="edit-contrast" min="0" max="5000" value="100" step="1">
+                        </div>
+                        <div class="setting-group">
+                            <label>Смещение (RGB): <span id="val-offset">0</span></label>
+                            <input type="range" id="edit-offset" min="-128" max="128" value="0" step="1">
+                        </div>
+                        
+                        <div class="setting-group checkbox-group" style="margin-top: 1rem;">
+                            <label style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer;">
+                                <input type="checkbox" id="edit-lsb"> 
+                                <span>LSB Reveal (Показать младшие биты)</span>
+                            </label>
+                        </div>
+                        <div class="setting-group checkbox-group">
+                            <label style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer;">
+                                <input type="checkbox" id="edit-invert"> 
+                                <span>Негатив (Инверсия цвета)</span>
+                            </label>
+                        </div>
+
+                        <div class="setting-group" style="margin-top: 1.5rem;">
+                            <label>Вращение и отражение</label>
+                            <div class="btn-row" style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+                                <button class="ctrl-btn" id="edit-rot-left" title="Повернуть влево" style="flex:1;">↺</button>
+                                <button class="ctrl-btn" id="edit-rot-right" title="Повернуть вправо" style="flex:1;">↻</button>
+                                <button class="ctrl-btn" id="edit-flip-h" title="Горизонтально" style="flex:1;">↔</button>
+                                <button class="ctrl-btn" id="edit-flip-v" title="Вертикально" style="flex:1;">↕</button>
+                            </div>
+                        </div>
+
+                        <div class="setting-group" style="margin-top: 1.5rem;">
+                            <label>Масштаб и обрезка</label>
+                            <div class="btn-row" style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+                                <button class="ctrl-btn" id="edit-zoom-out" title="Отдалить" style="flex:1;">
+                                    <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line><line x1="8" y1="11" x2="14" y2="11"></line></svg>
+                                </button>
+                                <button class="ctrl-btn" id="edit-zoom-in" title="Приблизить" style="flex:1;">
+                                    <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line><line x1="11" y1="8" x2="11" y2="14"></line><line x1="8" y1="11" x2="14" y2="11"></line></svg>
+                                </button>
+                                <button class="ctrl-btn" id="edit-zoom-reset" title="По размеру" style="flex:1;">
+                                    <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect></svg>
+                                </button>
+                                <button class="ctrl-btn" id="edit-crop-mode" title="Обрезать" style="flex:1;">
+                                    <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none"><path d="M6.13 1L6 16a2 2 0 0 0 2 2h15"></path><path d="M1 6.13L16 6a2 2 0 0 1 2 2v15"></path></svg>
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="setting-group" style="margin-top: 1rem; display: flex; gap: 0.5rem;">
+                            <button class="action-btn small" id="edit-reset" style="background: var(--bg-tertiary); color: var(--text-primary); border: 1px solid var(--border-color); flex: 1;">Сброс</button>
+                            <button class="action-btn small" id="edit-download" style="flex: 1;">Скачать</button>
+                        </div>
+                    </div>
+
+                    <div class="ocr-section" style="margin-top: 1.5rem; padding-top: 1.5rem; border-top: 1px solid var(--border-color);">
+                        <div class="setting-group" style="margin-bottom: 0.75rem;">
+                            <label>Язык OCR</label>
+                            <select id="ocr-lang">
+                                <option value="rus+eng">🇷🇺 Русский + English</option>
+                                <option value="eng">🇬🇧 English</option>
+                                <option value="rus">🇷🇺 Русский</option>
+                                <option value="deu">🇩🇪 Deutsch</option>
+                                <option value="fra">🇫🇷 Français</option>
+                                <option value="spa">🇪🇸 Español</option>
+                                <option value="chi_sim">🇨🇳 中文 (упрощённый)</option>
+                                <option value="jpn">🇯🇵 日本語</option>
+                                <option value="kor">🇰🇷 한국어</option>
+                                <option value="ara">🇸🇦 العربية</option>
+                            </select>
+                        </div>
+                        <div class="setting-group checkbox-group" style="margin-bottom: 0.75rem;">
+                            <label style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer;">
+                                <input type="checkbox" id="ocr-preprocess" checked>
+                                <span>Предобработка (улучшает точность)</span>
+                            </label>
+                        </div>
+                        <button class="action-btn" id="edit-ocr-btn">
+                            <span class="btn-icon">
+                                <svg viewBox="0 0 24 24">
+                                    <path d="M4 7V4h16v3M9 20h6M12 4v16"/>
+                                </svg>
+                            </span>
+                            Распознать текст
+                        </button>
+                        <div id="ocr-progress" style="display:none; margin-top: 0.75rem;">
+                            <div style="display: flex; justify-content: space-between; font-size: 0.8rem; color: var(--text-secondary); margin-bottom: 0.35rem;">
+                                <span id="ocr-status-text">Загрузка...</span>
+                                <span id="ocr-pct">0%</span>
+                            </div>
+                            <div class="progress-bar"><div class="progress-fill" id="ocr-progress-fill"></div></div>
+                        </div>
+                        <div id="ocr-result-group" style="display: none; margin-top: 1rem;">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.4rem;">
+                                <span style="font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; font-weight: 600; letter-spacing: 0.05em;">Результат</span>
+                                <span id="ocr-confidence" style="font-size: 0.7rem; color: var(--success); font-weight: 600;"></span>
+                            </div>
+                            <textarea id="ocr-output" readonly style="min-height: 100px; margin-bottom: 0.5rem; font-size: 0.85rem; padding: 0.75rem;"></textarea>
+                            <button class="action-btn small" id="ocr-copy-btn">Копировать текст</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        </main>
+    </div>
+
+    <!-- Libraries -->
+    <script src="https://unpkg.com/qr-code-styling@1.5.0/lib/qr-code-styling.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jsqr@1.4.0/dist/jsQR.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js"></script>
+    
+    <!-- Modular JS -->
+    <script src="js/utils.js"></script>
+    <script src="js/modules/stegano.js"></script>
+    <script src="js/modules/spectro.js"></script>
+    <script src="js/modules/morse.js"></script>
+    <script src="js/modules/qrcode.js"></script>
+    <script src="js/modules/base.js"></script>
+    <script src="js/modules/editor.js"></script>
+    <script src="js/modules/ciphers.js"></script>
+    <script src="js/modules/metadata.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>

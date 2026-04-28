@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crypto Tools — Стеганография, Спектрограмма, Морзянка, QR</title>
+    <meta name="description"
+        content="Криптографические инструменты: скрытие текста в изображениях, создание спектрограмм, азбука Морзе и QR-коды">
+    <!-- Modular CSS -->
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/modules/morse.css">
+    <link rel="stylesheet" href="css/modules/qrcode.css">
+    <link rel="stylesheet" href="css/modules/editor.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="app-container">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h1 class="logo">
+                    <span class="icon">
+                        <svg viewBox="0 0 24 24">
+                            <rect x="3" y="11" width="18" height="11" rx="2" />
+                            <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+                        </svg>
+                    </span>
+                    Crypto
+                </h1>
+                <p class="tagline">Cryptography Toolkit</p>
+            </div>
+            <nav class="nav-menu">
+            <a href="index.html" class="nav-item" data-tab="stegano">
+                <span class="nav-icon"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2" /><circle cx="8.5" cy="8.5" r="1.5" /><path d="m21 15-5-5L5 21" /></svg></span>
+                <span class="nav-text">Стеганография</span>
+            </a>
+            <a href="spectro.html" class="nav-item active" data-tab="spectro">
+                <span class="nav-icon"><svg viewBox="0 0 24 24"><path d="M9 18V5l12-2v13" /><circle cx="6" cy="18" r="3" /><circle cx="18" cy="16" r="3" /></svg></span>
+                <span class="nav-text">Спектрограмма</span>
+            </a>
+            <a href="morse.html" class="nav-item" data-tab="morse">
+                <span class="nav-icon"><svg viewBox="0 0 24 24"><path d="M4.9 19.1C1 15.2 1 8.8 4.9 4.9" /><path d="M7.8 16.2c-2.3-2.3-2.3-6.1 0-8.5" /><circle cx="12" cy="12" r="2" /><path d="M16.2 7.8c2.3 2.3 2.3 6.1 0 8.5" /><path d="M19.1 4.9C23 8.8 23 15.1 19.1 19" /></svg></span>
+                <span class="nav-text">Морзянка</span>
+            </a>
+            <a href="qrcode.html" class="nav-item" data-tab="qrcode">
+                <span class="nav-icon"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" /><rect x="14" y="3" width="7" height="7" /><rect x="3" y="14" width="7" height="7" /><rect x="14" y="14" width="3" height="3" /><rect x="18" y="14" width="3" height="3" /><rect x="14" y="18" width="3" height="3" /><rect x="18" y="18" width="3" height="3" /></svg></span>
+                <span class="nav-text">QR-код</span>
+            </a>
+            <a href="base.html" class="nav-item" data-tab="base">
+                <span class="nav-icon"><svg viewBox="0 0 24 24"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></span>
+                <span class="nav-text">Base</span>
+            </a>
+            <a href="ciphers.html" class="nav-item" data-tab="ciphers">
+                <span class="nav-icon"><svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg></span>
+                <span class="nav-text">Шифры</span>
+            </a>
+            <a href="editor.html" class="nav-item" data-tab="editor">
+                <span class="nav-icon"><svg viewBox="0 0 24 24"><path d="M12 20h9M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg></span>
+                <span class="nav-text">Редактор</span>
+            </a>
+                        <a href="metadata.html" class="nav-item" data-tab="metadata">
+                <span class="nav-icon"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg></span>
+                <span class="nav-text">Метаданные</span>
+            </a>
+</nav>
+        </aside>
+        <main class="main-content">
+            <section class="panel active" id="spectro">
+            <div class="panel-header">
+                <h2>
+                    <span class="header-icon">
+                        <svg viewBox="0 0 24 24">
+                            <path d="M9 18V5l12-2v13" />
+                            <circle cx="6" cy="18" r="3" />
+                            <circle cx="18" cy="16" r="3" />
+                        </svg>
+                    </span>
+                    Спектрограмма
+                </h2>
+                <p>Преобразуй изображение в звук и обратно</p>
+            </div>
+
+            <div class="mode-switch">
+                <button class="mode-btn active" data-spectro-mode="encode"><span>Картинка → WAV</span></button>
+                <button class="mode-btn" data-spectro-mode="decode"><span>WAV → Картинка</span></button>
+            </div>
+
+            <!-- Encode Mode: Image to WAV -->
+            <div class="spectro-mode-panel" id="spectro-encode">
+                <div class="drop-zone" id="spectro-drop">
+                    <div class="drop-icon">
+                        <svg viewBox="0 0 24 24">
+                            <rect x="3" y="3" width="18" height="18" rx="2" />
+                            <circle cx="8.5" cy="8.5" r="1.5" />
+                            <path d="m21 15-5-5L5 21" />
+                        </svg>
+                    </div>
+                    <p>Перетащи изображение или <span class="browse">выбери файл</span></p>
+                    <input type="file" id="spectro-input" accept="image/*" hidden>
+                </div>
+                <div class="preview-container" id="spectro-preview" style="display: none;">
+                    <img id="spectro-img" src="" alt="Preview">
+                    <button class="clear-btn" id="spectro-clear">
+                        <svg viewBox="0 0 24 24">
+                            <line x1="18" y1="6" x2="6" y2="18" />
+                            <line x1="6" y1="6" x2="18" y2="18" />
+                        </svg>
+                    </button>
+                </div>
+
+                <div class="spectro-settings">
+                    <div class="setting-group">
+                        <label>Длительность (сек)</label>
+                        <input type="number" id="spectro-duration" value="5" min="1" max="30">
+                    </div>
+                    <div class="setting-group">
+                        <label>Мин. частота (Hz)</label>
+                        <input type="number" id="spectro-min-freq" value="200" min="20" max="1000">
+                    </div>
+                    <div class="setting-group">
+                        <label>Макс. частота (Hz)</label>
+                        <input type="number" id="spectro-max-freq" value="8000" min="1000" max="20000">
+                    </div>
+                </div>
+
+                <button class="action-btn" id="spectro-convert">
+                    <span class="btn-icon">
+                        <svg viewBox="0 0 24 24">
+                            <path d="M9 18V5l12-2v13" />
+                            <circle cx="6" cy="18" r="3" />
+                            <circle cx="18" cy="16" r="3" />
+                        </svg>
+                    </span>
+                    Конвертировать в WAV
+                </button>
+
+                <div class="result-section" id="spectro-result" style="display: none;">
+                    <h3>
+                        <span class="success-icon">
+                            <svg viewBox="0 0 24 24">
+                                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
+                                <polyline points="22 4 12 14.01 9 11.01" />
+                            </svg>
+                        </span>
+                        Аудио готово!
+                    </h3>
+                    <audio id="spectro-audio" controls></audio>
+                    <button class="download-btn" id="download-spectro">
+                        <span class="btn-icon">
+                            <svg viewBox="0 0 24 24">
+                                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                                <polyline points="7 10 12 15 17 10" />
+                                <line x1="12" y1="15" x2="12" y2="3" />
+                            </svg>
+                        </span>
+                        Скачать WAV
+                    </button>
+                </div>
+            </div>
+
+            <!-- Decode Mode: WAV to Image -->
+            <div class="spectro-mode-panel" id="spectro-decode" style="display: none;">
+                <div class="drop-zone" id="spectro-wav-drop">
+                    <div class="drop-icon">
+                        <svg viewBox="0 0 24 24">
+                            <path d="M9 18V5l12-2v13" />
+                            <circle cx="6" cy="18" r="3" />
+                            <circle cx="18" cy="16" r="3" />
+                        </svg>
+                    </div>
+                    <p>Перетащи WAV файл или <span class="browse">выбери файл</span></p>
+                    <input type="file" id="spectro-wav-input" accept="audio/*,.wav" hidden>
+                </div>
+                <div class="audio-preview" id="spectro-wav-preview" style="display: none;">
+                    <audio id="spectro-wav-player" controls></audio>
+                    <button class="clear-btn" id="spectro-wav-clear">
+                        <svg viewBox="0 0 24 24">
+                            <line x1="18" y1="6" x2="6" y2="18" />
+                            <line x1="6" y1="6" x2="18" y2="18" />
+                        </svg>
+                    </button>
+                </div>
+
+                <div class="spectro-settings">
+                    <div class="setting-group">
+                        <label>Мин. частота (Hz)</label>
+                        <input type="number" id="decode-min-freq" value="200" min="20" max="1000">
+                    </div>
+                    <div class="setting-group">
+                        <label>Макс. частота (Hz)</label>
+                        <input type="number" id="decode-max-freq" value="8000" min="1000" max="20000">
+                    </div>
+                    <div class="setting-group">
+                        <label>Разрешение</label>
+                        <select id="decode-resolution">
+                            <option value="256">256px</option>
+                            <option value="512" selected>512px</option>
+                            <option value="1024">1024px (HD)</option>
+                            <option value="2048">2048px (Ultra)</option>
+                        </select>
+                    </div>
+                    <div class="setting-group">
+                        <label>Цветовая схема</label>
+                        <select id="spectro-colorscheme">
+                            <option value="grayscale">Чёрно-белый</option>
+                            <option value="heat" selected>Тепловой</option>
+                            <option value="green">Зелёный</option>
+                            <option value="blue">Синий</option>
+                            <option value="purple">Фиолетовый</option>
+                        </select>
+                    </div>
+                </div>
+
+                <button class="action-btn" id="spectro-decode-btn">
+                    <span class="btn-icon">
+                        <svg viewBox="0 0 24 24">
+                            <rect x="3" y="3" width="18" height="18" rx="2" />
+                            <circle cx="8.5" cy="8.5" r="1.5" />
+                            <path d="m21 15-5-5L5 21" />
+                        </svg>
+                    </span>
+                    Извлечь изображение
+                </button>
+
+                <div class="progress-container" id="spectro-progress" style="display: none;">
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="spectro-progress-fill"></div>
+                    </div>
+                    <p class="progress-text" id="spectro-progress-text">Обработка: 0%</p>
+                </div>
+
+                <div class="result-section" id="spectro-decode-result" style="display: none;">
+                    <h3>
+                        <span class="success-icon">
+                            <svg viewBox="0 0 24 24">
+                                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
+                                <polyline points="22 4 12 14.01 9 11.01" />
+                            </svg>
+                        </span>
+                        Изображение извлечено!
+                    </h3>
+                    <canvas id="spectro-decode-canvas"></canvas>
+                    <button class="download-btn" id="download-decoded-img">
+                        <span class="btn-icon">
+                            <svg viewBox="0 0 24 24">
+                                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                                <polyline points="7 10 12 15 17 10" />
+                                <line x1="12" y1="15" x2="12" y2="3" />
+                            </svg>
+                        </span>
+                        Скачать изображение
+                    </button>
+                </div>
+            </div>
+        </section>
+        </main>
+    </div>
+
+    <!-- Libraries -->
+    <script src="https://unpkg.com/qr-code-styling@1.5.0/lib/qr-code-styling.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jsqr@1.4.0/dist/jsQR.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js"></script>
+    
+    <!-- Modular JS -->
+    <script src="js/utils.js"></script>
+    <script src="js/modules/stegano.js"></script>
+    <script src="js/modules/spectro.js"></script>
+    <script src="js/modules/morse.js"></script>
+    <script src="js/modules/qrcode.js"></script>
+    <script src="js/modules/base.js"></script>
+    <script src="js/modules/editor.js"></script>
+    <script src="js/modules/ciphers.js"></script>
+    <script src="js/modules/metadata.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>

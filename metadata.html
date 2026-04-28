@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crypto Tools — Анализ файлов и метаданные</title>
+    <meta name="description" content="Профессиональный анализатор файлов: метаданные, EXIF, GPS, хеши SHA-256, энтропия, строки, hex-дамп">
+    <!-- Modular CSS -->
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/modules/morse.css">
+    <link rel="stylesheet" href="css/modules/qrcode.css">
+    <link rel="stylesheet" href="css/modules/editor.css">
+    <link rel="stylesheet" href="css/modules/metadata.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="app-container">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h1 class="logo">
+                    <span class="icon">
+                        <svg viewBox="0 0 24 24">
+                            <rect x="3" y="11" width="18" height="11" rx="2" />
+                            <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+                        </svg>
+                    </span>
+                    Crypto
+                </h1>
+                <p class="tagline">Cryptography Toolkit</p>
+            </div>
+            <nav class="nav-menu">
+            <a href="index.html" class="nav-item" data-tab="stegano">
+                <span class="nav-icon"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2" /><circle cx="8.5" cy="8.5" r="1.5" /><path d="m21 15-5-5L5 21" /></svg></span>
+                <span class="nav-text">Стеганография</span>
+            </a>
+            <a href="spectro.html" class="nav-item" data-tab="spectro">
+                <span class="nav-icon"><svg viewBox="0 0 24 24"><path d="M9 18V5l12-2v13" /><circle cx="6" cy="18" r="3" /><circle cx="18" cy="16" r="3" /></svg></span>
+                <span class="nav-text">Спектрограмма</span>
+            </a>
+            <a href="morse.html" class="nav-item" data-tab="morse">
+                <span class="nav-icon"><svg viewBox="0 0 24 24"><path d="M4.9 19.1C1 15.2 1 8.8 4.9 4.9" /><path d="M7.8 16.2c-2.3-2.3-2.3-6.1 0-8.5" /><circle cx="12" cy="12" r="2" /><path d="M16.2 7.8c2.3 2.3 2.3 6.1 0 8.5" /><path d="M19.1 4.9C23 8.8 23 15.1 19.1 19" /></svg></span>
+                <span class="nav-text">Морзянка</span>
+            </a>
+            <a href="qrcode.html" class="nav-item" data-tab="qrcode">
+                <span class="nav-icon"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" /><rect x="14" y="3" width="7" height="7" /><rect x="3" y="14" width="7" height="7" /><rect x="14" y="14" width="3" height="3" /><rect x="18" y="14" width="3" height="3" /><rect x="14" y="18" width="3" height="3" /><rect x="18" y="18" width="3" height="3" /></svg></span>
+                <span class="nav-text">QR-код</span>
+            </a>
+            <a href="base.html" class="nav-item" data-tab="base">
+                <span class="nav-icon"><svg viewBox="0 0 24 24"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></span>
+                <span class="nav-text">Base</span>
+            </a>
+            <a href="ciphers.html" class="nav-item" data-tab="ciphers">
+                <span class="nav-icon"><svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg></span>
+                <span class="nav-text">Шифры</span>
+            </a>
+            <a href="editor.html" class="nav-item" data-tab="editor">
+                <span class="nav-icon"><svg viewBox="0 0 24 24"><path d="M12 20h9M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg></span>
+                <span class="nav-text">Редактор</span>
+            </a>
+            <a href="metadata.html" class="nav-item active" data-tab="metadata">
+                <span class="nav-icon"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg></span>
+                <span class="nav-text">Метаданные</span>
+            </a>
+</nav>
+        </aside>
+        <main class="main-content">
+            <section class="panel active" id="metadata">
+            <div class="panel-header">
+                <h2>
+                    <span class="header-icon">
+                        <svg viewBox="0 0 24 24">
+                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                            <polyline points="14 2 14 8 20 8"></polyline>
+                        </svg>
+                    </span>
+                    Анализ файлов
+                </h2>
+                <p>Метаданные • EXIF • GPS • Хеши • Энтропия • Строки • Hex-дамп</p>
+            </div>
+
+            <div class="metadata-content">
+                <div class="drop-zone" id="metadata-drop">
+                    <div class="drop-icon">
+                        <svg viewBox="0 0 24 24">
+                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M17 8l-5-5-5 5M12 3v12"/>
+                        </svg>
+                    </div>
+                    <p>Перетащи любой файл или <span class="browse">выбери файл</span></p>
+                    <input type="file" id="metadata-input" hidden>
+                </div>
+
+                <div id="metadata-results" style="display: none;"></div>
+            </div>
+        </section>
+        </main>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/exif-js"></script>
+    <!-- Modular JS -->
+    <script src="js/utils.js"></script>
+    <script src="js/modules/metadata.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>

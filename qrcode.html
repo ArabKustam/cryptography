@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crypto Tools — Стеганография, Спектрограмма, Морзянка, QR</title>
+    <meta name="description"
+        content="Криптографические инструменты: скрытие текста в изображениях, создание спектрограмм, азбука Морзе и QR-коды">
+    <!-- Modular CSS -->
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/modules/morse.css">
+    <link rel="stylesheet" href="css/modules/qrcode.css">
+    <link rel="stylesheet" href="css/modules/editor.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="app-container">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h1 class="logo">
+                    <span class="icon">
+                        <svg viewBox="0 0 24 24">
+                            <rect x="3" y="11" width="18" height="11" rx="2" />
+                            <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+                        </svg>
+                    </span>
+                    Crypto
+                </h1>
+                <p class="tagline">Cryptography Toolkit</p>
+            </div>
+            <nav class="nav-menu">
+            <a href="index.html" class="nav-item" data-tab="stegano">
+                <span class="nav-icon"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2" /><circle cx="8.5" cy="8.5" r="1.5" /><path d="m21 15-5-5L5 21" /></svg></span>
+                <span class="nav-text">Стеганография</span>
+            </a>
+            <a href="spectro.html" class="nav-item" data-tab="spectro">
+                <span class="nav-icon"><svg viewBox="0 0 24 24"><path d="M9 18V5l12-2v13" /><circle cx="6" cy="18" r="3" /><circle cx="18" cy="16" r="3" /></svg></span>
+                <span class="nav-text">Спектрограмма</span>
+            </a>
+            <a href="morse.html" class="nav-item" data-tab="morse">
+                <span class="nav-icon"><svg viewBox="0 0 24 24"><path d="M4.9 19.1C1 15.2 1 8.8 4.9 4.9" /><path d="M7.8 16.2c-2.3-2.3-2.3-6.1 0-8.5" /><circle cx="12" cy="12" r="2" /><path d="M16.2 7.8c2.3 2.3 2.3 6.1 0 8.5" /><path d="M19.1 4.9C23 8.8 23 15.1 19.1 19" /></svg></span>
+                <span class="nav-text">Морзянка</span>
+            </a>
+            <a href="qrcode.html" class="nav-item active" data-tab="qrcode">
+                <span class="nav-icon"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" /><rect x="14" y="3" width="7" height="7" /><rect x="3" y="14" width="7" height="7" /><rect x="14" y="14" width="3" height="3" /><rect x="18" y="14" width="3" height="3" /><rect x="14" y="18" width="3" height="3" /><rect x="18" y="18" width="3" height="3" /></svg></span>
+                <span class="nav-text">QR-код</span>
+            </a>
+            <a href="base.html" class="nav-item" data-tab="base">
+                <span class="nav-icon"><svg viewBox="0 0 24 24"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></span>
+                <span class="nav-text">Base</span>
+            </a>
+            <a href="ciphers.html" class="nav-item" data-tab="ciphers">
+                <span class="nav-icon"><svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg></span>
+                <span class="nav-text">Шифры</span>
+            </a>
+            <a href="editor.html" class="nav-item" data-tab="editor">
+                <span class="nav-icon"><svg viewBox="0 0 24 24"><path d="M12 20h9M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg></span>
+                <span class="nav-text">Редактор</span>
+            </a>
+                        <a href="metadata.html" class="nav-item" data-tab="metadata">
+                <span class="nav-icon"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg></span>
+                <span class="nav-text">Метаданные</span>
+            </a>
+</nav>
+        </aside>
+        <main class="main-content">
+            <section class="panel active" id="qrcode">
+            <div class="panel-header">
+                <h2>
+                    <span class="header-icon">
+                        <svg viewBox="0 0 24 24">
+                            <rect x="3" y="3" width="7" height="7" />
+                            <rect x="14" y="3" width="7" height="7" />
+                            <rect x="3" y="14" width="7" height="7" />
+                            <rect x="14" y="14" width="3" height="3" />
+                            <rect x="18" y="14" width="3" height="3" />
+                            <rect x="14" y="18" width="3" height="3" />
+                            <rect x="18" y="18" width="3" height="3" />
+                        </svg>
+                    </span>
+                    QR-код генератор
+                </h2>
+                <p>Создай или сканируй QR-код</p>
+            </div>
+
+            <div class="mode-switch">
+                <button class="mode-btn active" data-qrmode="create"><span>Создать</span></button>
+                <button class="mode-btn" data-qrmode="scan"><span>Сканировать</span></button>
+            </div>
+
+            <div class="qr-generator" id="qr-create-panel">
+                <div class="qr-input-section">
+                    <div class="setting-group">
+                        <label>Содержимое</label>
+                        <textarea id="qr-content" placeholder="Текст, ссылка или любые данные..."></textarea>
+                    </div>
+
+                    <div class="qr-settings">
+                        <div class="setting-group">
+                            <label>Стиль точек</label>
+                            <select id="qr-dot-style">
+                                <option value="square">Квадратные</option>
+                                <option value="rounded">Округлённые</option>
+                                <option value="dots">Круглые</option>
+                                <option value="classy">Классические</option>
+                                <option value="extra-rounded">Очень округлённые</option>
+                            </select>
+                        </div>
+                        <div class="setting-group">
+                            <label>Размер (px)</label>
+                            <select id="qr-size">
+                                <option value="200">200px</option>
+                                <option value="300" selected>300px</option>
+                                <option value="400">400px</option>
+                                <option value="500">500px (HD)</option>
+                            </select>
+                        </div>
+                        <div class="setting-group">
+                            <label>Стиль углов</label>
+                            <select id="qr-corner-style">
+                                <option value="square">Квадратные</option>
+                                <option value="extra-rounded">Округлённые</option>
+                                <option value="dot">Точечные</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="qr-colors">
+                        <div class="setting-group">
+                            <label>Цвет точек</label>
+                            <input type="color" id="qr-dot-color" value="#000000">
+                        </div>
+                        <div class="setting-group">
+                            <label>Цвет фона</label>
+                            <input type="color" id="qr-bg-color" value="#ffffff">
+                        </div>
+                        <div class="setting-group">
+                            <label>Градиент</label>
+                            <select id="qr-gradient">
+                                <option value="none">Без градиента</option>
+                                <option value="linear">Линейный</option>
+                                <option value="radial">Радиальный</option>
+                            </select>
+                        </div>
+                        <div class="setting-group" id="qr-gradient-color-group" style="display: none;">
+                            <label>Второй цвет</label>
+                            <input type="color" id="qr-gradient-color" value="#6366f1">
+                        </div>
+                    </div>
+
+                    <div class="qr-logo-section">
+                        <label>Логотип в центре (опционально)</label>
+                        <div class="logo-upload">
+                            <div class="drop-zone small" id="qr-logo-drop">
+                                <p>
+                                    <span class="btn-icon"
+                                        style="display: inline-flex; vertical-align: middle; margin-right: 0.5rem;">
+                                        <svg viewBox="0 0 24 24"
+                                            style="width: 18px; height: 18px; stroke: currentColor; stroke-width: 2; fill: none;">
+                                            <rect x="3" y="3" width="18" height="18" rx="2" />
+                                            <circle cx="8.5" cy="8.5" r="1.5" />
+                                            <path d="m21 15-5-5L5 21" />
+                                        </svg>
+                                    </span>
+                                    Добавить логотип
+                                </p>
+                                <input type="file" id="qr-logo-input" accept="image/*" hidden>
+                            </div>
+                            <div class="logo-preview" id="qr-logo-preview" style="display: none;">
+                                <img id="qr-logo-img" src="" alt="Logo">
+                                <button class="clear-btn" id="qr-logo-clear">
+                                    <svg viewBox="0 0 24 24">
+                                        <line x1="18" y1="6" x2="6" y2="18" />
+                                        <line x1="6" y1="6" x2="18" y2="18" />
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button class="action-btn" id="generate-qr">
+                        <span class="btn-icon">
+                            <svg viewBox="0 0 24 24">
+                                <path
+                                    d="M12 3v3m6.366-.366-2.12 2.12M21 12h-3m.366 6.366-2.12-2.12M12 21v-3m-6.366.366 2.12-2.12M3 12h3m-.366-6.366 2.12 2.12" />
+                            </svg>
+                        </span>
+                        Сгенерировать QR
+                    </button>
+                </div>
+
+                <div class="qr-result-section" id="qr-result" style="display: none;">
+                    <h3>Твой QR-код:</h3>
+                    <div class="qr-display">
+                        <canvas id="qr-canvas"></canvas>
+                    </div>
+                    <div class="qr-actions">
+                        <button class="download-btn" id="download-qr-png">
+                            <span class="btn-icon">
+                                <svg viewBox="0 0 24 24">
+                                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                                    <polyline points="7 10 12 15 17 10" />
+                                    <line x1="12" y1="15" x2="12" y2="3" />
+                                </svg>
+                            </span>
+                            Скачать PNG
+                        </button>
+                        <button class="download-btn" id="download-qr-svg">
+                            <span class="btn-icon">
+                                <svg viewBox="0 0 24 24">
+                                    <path
+                                        d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z" />
+                                </svg>
+                            </span>
+                            Скачать SVG
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="qr-generator" id="qr-scan-panel" style="display: none;">
+                <div class="qr-input-section" style="width: 100%; max-width: 600px; margin: 0 auto;">
+                    <div class="drop-zone" id="qr-scan-drop">
+                        <div class="drop-icon">
+                            <svg viewBox="0 0 24 24">
+                                <path
+                                    d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z" />
+                                <circle cx="12" cy="13" r="4" />
+                            </svg>
+                        </div>
+                        <p>Перетащи QR-код сюда или <span class="browse">выбери файл</span></p>
+                        <input type="file" id="qr-scan-input" accept="image/*" hidden>
+                    </div>
+
+                    <div class="scan-preview" id="qr-scan-preview-box" style="display: none;">
+                        <img id="qr-scan-img"
+                            style="max-width: 100%; max-height: 300px; border-radius: 8px; margin-bottom: 1rem;">
+                        <button class="action-btn" id="scan-qr-btn">
+                            <span class="btn-icon">
+                                <svg viewBox="0 0 24 24">
+                                    <circle cx="11" cy="11" r="8" />
+                                    <path d="m21 21-4.3-4.3" />
+                                </svg>
+                            </span>
+                            Сканировать
+                        </button>
+                    </div>
+
+                    <div class="result-box" id="qr-scan-result" style="display: none;">
+                        <h4>Результат сканирования:</h4>
+                        <p id="qr-scan-text" class="code-output" style="word-break: break-all;"></p>
+                        <div class="qr-actions" id="qr-scan-actions">
+                            <button class="action-btn small" id="qr-copy-btn">
+                                <span class="btn-icon">
+                                    <svg viewBox="0 0 24 24">
+                                        <rect x="9" y="9" width="13" height="13" rx="2" />
+                                        <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
+                                    </svg>
+                                </span>
+                                Копировать
+                            </button>
+                            <a href="#" target="_blank" class="action-btn small" id="qr-open-link"
+                                style="display: none; text-decoration: none;">
+                                <span class="btn-icon">
+                                    <svg viewBox="0 0 24 24">
+                                        <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
+                                        <polyline points="15 3 21 3 21 9" />
+                                        <line x1="10" y1="14" x2="21" y2="3" />
+                                    </svg>
+                                </span>
+                                Открыть ссылку
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        </main>
+    </div>
+
+    <!-- Libraries -->
+    <script src="https://unpkg.com/qr-code-styling@1.5.0/lib/qr-code-styling.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jsqr@1.4.0/dist/jsQR.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js"></script>
+    
+    <!-- Modular JS -->
+    <script src="js/utils.js"></script>
+    <script src="js/modules/stegano.js"></script>
+    <script src="js/modules/spectro.js"></script>
+    <script src="js/modules/morse.js"></script>
+    <script src="js/modules/qrcode.js"></script>
+    <script src="js/modules/base.js"></script>
+    <script src="js/modules/editor.js"></script>
+    <script src="js/modules/ciphers.js"></script>
+    <script src="js/modules/metadata.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>

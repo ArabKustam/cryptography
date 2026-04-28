@@ -30,7 +30,7 @@
                 <p class="tagline">Cryptography Toolkit</p>
             </div>
             <nav class="nav-menu">
-            <a href="index.html" class="nav-item active" data-tab="stegano">
+            <a href="index.html" class="nav-item" data-tab="stegano">
                 <span class="nav-icon"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2" /><circle cx="8.5" cy="8.5" r="1.5" /><path d="m21 15-5-5L5 21" /></svg></span>
                 <span class="nav-text">Стеганография</span>
             </a>
@@ -50,7 +50,7 @@
                 <span class="nav-icon"><svg viewBox="0 0 24 24"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></span>
                 <span class="nav-text">Base</span>
             </a>
-            <a href="ciphers.html" class="nav-item" data-tab="ciphers">
+            <a href="ciphers.html" class="nav-item active" data-tab="ciphers">
                 <span class="nav-icon"><svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg></span>
                 <span class="nav-text">Шифры</span>
             </a>
@@ -65,100 +65,73 @@
 </nav>
         </aside>
         <main class="main-content">
-            <section class="panel active" id="stegano">
+            <section class="panel active" id="ciphers">
             <div class="panel-header">
                 <h2>
                     <span class="header-icon">
                         <svg viewBox="0 0 24 24">
-                            <rect x="3" y="3" width="18" height="18" rx="2" />
-                            <circle cx="8.5" cy="8.5" r="1.5" />
-                            <path d="m21 15-5-5L5 21" />
+                            <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
                         </svg>
                     </span>
-                    Стеганография
+                    Классические Шифры
                 </h2>
-                <p>Скрой секретный текст внутри изображения</p>
+                <p>Шифр Цезаря и Шифр Виженера для текстовых сообщений</p>
             </div>
 
             <div class="mode-switch">
-                <button class="mode-btn active" data-mode="encode"><span>Закодировать</span></button>
-                <button class="mode-btn" data-mode="decode"><span>Декодировать</span></button>
+                <button class="mode-btn active" data-cipher-mode="encode"><span>Зашифровать</span></button>
+                <button class="mode-btn" data-cipher-mode="decode"><span>Расшифровать</span></button>
             </div>
 
-            <div class="stegano-content">
-                <div class="encode-section">
-                    <div class="drop-zone" id="stegano-drop">
-                        <div class="drop-icon">
-                            <svg viewBox="0 0 24 24">
-                                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
-                                <polyline points="17 8 12 3 7 8" />
-                                <line x1="12" y1="3" x2="12" y2="15" />
-                            </svg>
-                        </div>
-                        <p>Перетащи изображение или <span class="browse">выбери файл</span></p>
-                        <input type="file" id="stegano-input" accept="image/*" hidden>
-                    </div>
-                    <div class="preview-container" id="stegano-preview" style="display: none;">
-                        <img id="stegano-img" src="" alt="Preview">
-                        <button class="clear-btn" id="stegano-clear">
-                            <svg viewBox="0 0 24 24">
-                                <line x1="18" y1="6" x2="6" y2="18" />
-                                <line x1="6" y1="6" x2="18" y2="18" />
-                            </svg>
-                        </button>
-                    </div>
+            <div class="cipher-content">
+                <div class="setting-group" style="margin-bottom: 1.5rem;">
+                    <label>Алгоритм</label>
+                    <select id="cipher-algo">
+                        <option value="caesar" selected>Шифр Цезаря (Сдвиг)</option>
+                        <option value="vigenere">Шифр Виженера (Ключевое слово)</option>
+                    </select>
+                </div>
 
-                    <div class="encode-controls" id="encode-controls">
-                        <textarea id="secret-text" placeholder="Введи секретный текст для скрытия..."></textarea>
-                        <button class="action-btn" id="encode-btn">
-                            <span class="btn-icon">
-                                <svg viewBox="0 0 24 24">
-                                    <rect x="3" y="11" width="18" height="11" rx="2" />
-                                    <path d="M7 11V7a5 5 0 0 1 10 0v4" />
-                                </svg>
-                            </span>
-                            Закодировать
+                <div id="caesar-settings" class="setting-group" style="margin-bottom: 1.5rem;">
+                    <label>Сдвиг: <span id="val-shift">3</span></label>
+                    <input type="range" id="cipher-shift" min="1" max="32" value="3" style="width: 100%;">
+                    
+                    <div class="quick-shift" style="display: flex; gap: 0.5rem; margin-top: 0.75rem;">
+                        <button class="action-btn small" id="shift-minus" title="Сдвиг -1 (Назад)">
+                            <svg viewBox="0 0 24 24" style="width: 16px; height: 16px; stroke: currentColor; fill: none; stroke-width: 2;"><path d="M15 18l-6-6 6-6"/></svg>
+                            -1
                         </button>
-                    </div>
-
-                    <div class="decode-controls" id="decode-controls" style="display: none;">
-                        <button class="action-btn" id="decode-btn">
-                            <span class="btn-icon">
-                                <svg viewBox="0 0 24 24">
-                                    <rect x="3" y="11" width="18" height="11" rx="2" />
-                                    <path d="M7 11V7a5 5 0 0 1 5-5 5 5 0 0 1 5 5" />
-                                </svg>
-                            </span>
-                            Декодировать
+                        <button class="action-btn small" id="shift-plus" title="Сдвиг +1 (Вперед)">
+                            +1
+                            <svg viewBox="0 0 24 24" style="width: 16px; height: 16px; stroke: currentColor; fill: none; stroke-width: 2;"><path d="M9 18l6-6-6-6"/></svg>
                         </button>
-                        <div class="result-box" id="decode-result" style="display: none;">
-                            <h4>Скрытый текст:</h4>
-                            <p id="decoded-text"></p>
-                        </div>
                     </div>
                 </div>
 
-                <div class="result-section" id="stegano-result" style="display: none;">
-                    <h3>
-                        <span class="success-icon">
-                            <svg viewBox="0 0 24 24">
-                                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
-                                <polyline points="22 4 12 14.01 9 11.01" />
-                            </svg>
-                        </span>
-                        Готово!
-                    </h3>
-                    <canvas id="stegano-canvas"></canvas>
-                    <button class="download-btn" id="download-stegano">
-                        <span class="btn-icon">
-                            <svg viewBox="0 0 24 24">
-                                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
-                                <polyline points="7 10 12 15 17 10" />
-                                <line x1="12" y1="15" x2="12" y2="3" />
-                            </svg>
-                        </span>
-                        Скачать изображение
-                    </button>
+                <div id="vigenere-settings" class="setting-group" style="margin-bottom: 1.5rem; display: none;">
+                    <label>Ключевое слово</label>
+                    <input type="text" id="cipher-key" placeholder="Например: SECRET или КЛЮЧ" style="width: 100%; padding: 0.75rem; background: var(--bg-primary); border: 1px solid var(--border-color); border-radius: var(--radius-sm); color: white;">
+                </div>
+
+                <div class="setting-group" style="margin-bottom: 1.5rem;">
+                    <label>Исходный текст</label>
+                    <textarea id="cipher-input" placeholder="Введите сообщение..."></textarea>
+                </div>
+
+                <button class="action-btn" id="cipher-action-btn">
+                    <span class="btn-icon">
+                        <svg viewBox="0 0 24 24">
+                            <rect x="3" y="11" width="18" height="11" rx="2" />
+                            <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+                        </svg>
+                    </span>
+                    <span id="cipher-action-text">Зашифровать</span>
+                </button>
+
+                <div class="result-section" id="cipher-result-section" style="display: none; margin-top: 1.5rem;">
+                    <h3>Результат:</h3>
+                    <textarea id="cipher-output" readonly style="margin-bottom: 1rem;"></textarea>
+                    <button class="action-btn small" id="cipher-copy-btn">Копировать текст</button>
                 </div>
             </div>
         </section>

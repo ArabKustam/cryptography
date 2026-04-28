@@ -30,7 +30,7 @@
                 <p class="tagline">Cryptography Toolkit</p>
             </div>
             <nav class="nav-menu">
-            <a href="index.html" class="nav-item active" data-tab="stegano">
+            <a href="index.html" class="nav-item" data-tab="stegano">
                 <span class="nav-icon"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2" /><circle cx="8.5" cy="8.5" r="1.5" /><path d="m21 15-5-5L5 21" /></svg></span>
                 <span class="nav-text">Стеганография</span>
             </a>
@@ -46,7 +46,7 @@
                 <span class="nav-icon"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" /><rect x="14" y="3" width="7" height="7" /><rect x="3" y="14" width="7" height="7" /><rect x="14" y="14" width="3" height="3" /><rect x="18" y="14" width="3" height="3" /><rect x="14" y="18" width="3" height="3" /><rect x="18" y="18" width="3" height="3" /></svg></span>
                 <span class="nav-text">QR-код</span>
             </a>
-            <a href="base.html" class="nav-item" data-tab="base">
+            <a href="base.html" class="nav-item active" data-tab="base">
                 <span class="nav-icon"><svg viewBox="0 0 24 24"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></span>
                 <span class="nav-text">Base</span>
             </a>
@@ -65,100 +65,108 @@
 </nav>
         </aside>
         <main class="main-content">
-            <section class="panel active" id="stegano">
+            <section class="panel active" id="base">
             <div class="panel-header">
                 <h2>
                     <span class="header-icon">
                         <svg viewBox="0 0 24 24">
-                            <rect x="3" y="3" width="18" height="18" rx="2" />
-                            <circle cx="8.5" cy="8.5" r="1.5" />
-                            <path d="m21 15-5-5L5 21" />
+                            <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
                         </svg>
                     </span>
-                    Стеганография
+                    Base Кодировки
                 </h2>
-                <p>Скрой секретный текст внутри изображения</p>
+                <p>Base64, Base32, Base16 (Hex) для текста и файлов</p>
             </div>
 
             <div class="mode-switch">
-                <button class="mode-btn active" data-mode="encode"><span>Закодировать</span></button>
-                <button class="mode-btn" data-mode="decode"><span>Декодировать</span></button>
+                <button class="mode-btn active" data-base-mode="encode"><span>Закодировать</span></button>
+                <button class="mode-btn" data-base-mode="decode"><span>Декодировать</span></button>
             </div>
 
-            <div class="stegano-content">
-                <div class="encode-section">
-                    <div class="drop-zone" id="stegano-drop">
-                        <div class="drop-icon">
-                            <svg viewBox="0 0 24 24">
-                                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
-                                <polyline points="17 8 12 3 7 8" />
-                                <line x1="12" y1="3" x2="12" y2="15" />
-                            </svg>
-                        </div>
-                        <p>Перетащи изображение или <span class="browse">выбери файл</span></p>
-                        <input type="file" id="stegano-input" accept="image/*" hidden>
+            <div class="base-content">
+                <div class="base-settings" style="display: flex; gap: 1rem; margin-bottom: 1.5rem;">
+                    <div class="setting-group" style="flex: 1;">
+                        <label>Алгоритм</label>
+                        <select id="base-algorithm">
+                            <option value="base64" selected>Base64</option>
+                            <option value="base32">Base32</option>
+                            <option value="base16">Base16 (Hex)</option>
+                            <option value="base2">Двоичный код (Binary)</option>
+                        </select>
                     </div>
-                    <div class="preview-container" id="stegano-preview" style="display: none;">
-                        <img id="stegano-img" src="" alt="Preview">
-                        <button class="clear-btn" id="stegano-clear">
-                            <svg viewBox="0 0 24 24">
-                                <line x1="18" y1="6" x2="6" y2="18" />
-                                <line x1="6" y1="6" x2="18" y2="18" />
-                            </svg>
-                        </button>
-                    </div>
-
-                    <div class="encode-controls" id="encode-controls">
-                        <textarea id="secret-text" placeholder="Введи секретный текст для скрытия..."></textarea>
-                        <button class="action-btn" id="encode-btn">
-                            <span class="btn-icon">
-                                <svg viewBox="0 0 24 24">
-                                    <rect x="3" y="11" width="18" height="11" rx="2" />
-                                    <path d="M7 11V7a5 5 0 0 1 10 0v4" />
-                                </svg>
-                            </span>
-                            Закодировать
-                        </button>
-                    </div>
-
-                    <div class="decode-controls" id="decode-controls" style="display: none;">
-                        <button class="action-btn" id="decode-btn">
-                            <span class="btn-icon">
-                                <svg viewBox="0 0 24 24">
-                                    <rect x="3" y="11" width="18" height="11" rx="2" />
-                                    <path d="M7 11V7a5 5 0 0 1 5-5 5 5 0 0 1 5 5" />
-                                </svg>
-                            </span>
-                            Декодировать
-                        </button>
-                        <div class="result-box" id="decode-result" style="display: none;">
-                            <h4>Скрытый текст:</h4>
-                            <p id="decoded-text"></p>
-                        </div>
+                    <div class="setting-group" style="flex: 1;">
+                        <label>Тип данных</label>
+                        <select id="base-datatype">
+                            <option value="text" selected>Текст</option>
+                            <option value="file">Файл / Изображение</option>
+                        </select>
                     </div>
                 </div>
 
-                <div class="result-section" id="stegano-result" style="display: none;">
-                    <h3>
-                        <span class="success-icon">
+                <!-- Text Input -->
+                <div id="base-text-input-group">
+                    <textarea id="base-input-text" placeholder="Введите текст..."></textarea>
+                </div>
+
+                <!-- File Input -->
+                <div id="base-file-input-group" style="display: none;">
+                    <div class="drop-zone" id="base-file-drop">
+                        <div class="drop-icon">
                             <svg viewBox="0 0 24 24">
-                                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
-                                <polyline points="22 4 12 14.01 9 11.01" />
+                                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                                <polyline points="14 2 14 8 20 8"></polyline>
                             </svg>
-                        </span>
-                        Готово!
-                    </h3>
-                    <canvas id="stegano-canvas"></canvas>
-                    <button class="download-btn" id="download-stegano">
-                        <span class="btn-icon">
-                            <svg viewBox="0 0 24 24">
-                                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
-                                <polyline points="7 10 12 15 17 10" />
-                                <line x1="12" y1="15" x2="12" y2="3" />
-                            </svg>
-                        </span>
-                        Скачать изображение
-                    </button>
+                        </div>
+                        <p>Перетащи файл или <span class="browse">выбери файл</span></p>
+                        <input type="file" id="base-file-input" hidden>
+                    </div>
+                    <div id="base-file-preview" style="display: none; align-items: center; justify-content: space-between; padding: 1rem; border: 1px solid var(--border-color); border-radius: var(--radius-sm); margin-bottom: 1rem;">
+                        <span id="base-file-name" style="word-break: break-all; color: var(--text-primary);">Имя файла</span>
+                        <button class="action-btn small" id="base-file-clear" style="background: var(--error); width: auto;">Очистить</button>
+                    </div>
+                </div>
+
+                <button class="action-btn" id="base-action-btn">
+                    <span class="btn-icon">
+                        <svg viewBox="0 0 24 24">
+                            <rect x="3" y="11" width="18" height="11" rx="2" />
+                            <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+                        </svg>
+                    </span>
+                    <span id="base-action-text">Закодировать</span>
+                </button>
+
+                <div class="result-section" id="base-result" style="display: none; margin-top: 1.5rem;">
+                    <h3>Результат:</h3>
+                    
+                    <div id="base-result-text-group">
+                        <textarea id="base-output-text" readonly style="margin-bottom: 0.5rem;"></textarea>
+                        <button class="action-btn small" id="base-copy-btn">
+                            <span class="btn-icon">
+                                <svg viewBox="0 0 24 24">
+                                    <rect x="9" y="9" width="13" height="13" rx="2" />
+                                    <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
+                                </svg>
+                            </span>
+                            Копировать
+                        </button>
+                    </div>
+                    
+                    <div id="base-result-file-group" style="display: none;">
+                        <div class="preview-container" id="base-image-preview" style="display: none; margin-bottom: 1rem;">
+                            <img id="base-output-image" src="" alt="Decoded Image" style="max-width: 100%; border-radius: var(--radius-md);">
+                        </div>
+                        <button class="download-btn" id="base-download-btn">
+                            <span class="btn-icon">
+                                <svg viewBox="0 0 24 24">
+                                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                                    <polyline points="7 10 12 15 17 10" />
+                                    <line x1="12" y1="15" x2="12" y2="3" />
+                                </svg>
+                            </span>
+                            Скачать файл
+                        </button>
+                    </div>
                 </div>
             </div>
         </section>
