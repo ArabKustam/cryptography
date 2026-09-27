@@ -129,4 +129,4 @@ const ciphersModule = {
         const text = document.getElementById('cipher-output').value;
         navigator.clipboard.writeText(text).then(() => alert('Скопировано!'));
     }
-}; 
+};
