@@ -165,4 +165,3 @@ const steganoModule = {
         document.getElementById('stegano-input').value = '';
     }
 };
-// refactor: optimize internal handler
