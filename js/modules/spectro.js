@@ -456,4 +456,3 @@ const spectroModule = {
         document.getElementById('spectro-wav-input').value = '';
     }
 };
-// sync: update state checkpoint
