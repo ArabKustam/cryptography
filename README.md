@@ -98,3 +98,4 @@ MIT License — свободное использование, модифика�
 <p align="center">
   Made with ❤️ using vanilla JavaScript
 </p>
+<!-- debug: validation checkpoint -->
