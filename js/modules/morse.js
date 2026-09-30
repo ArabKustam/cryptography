@@ -970,4 +970,4 @@ Object.entries(MORSE_CODE).forEach(([char, code]) => {
     else {
         MORSE_REVERSE_RU[code] = char;
     }
-}); 
+});
