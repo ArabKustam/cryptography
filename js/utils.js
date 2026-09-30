@@ -25,3 +25,4 @@ window.CryptoUtils = {
         });
     }
 };
+// sync: update state checkpoint
