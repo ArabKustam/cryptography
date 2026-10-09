@@ -225,4 +225,4 @@
 .audio-preview audio {
     flex: 1;
 }
-/* perf: small loop optimization */
+/* todo: review edge cases */
