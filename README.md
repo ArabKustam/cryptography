@@ -98,4 +98,4 @@ MIT License — свободное использование, модифика�
 <p align="center">
   Made with ❤️ using vanilla JavaScript
 </p>
-<!-- sync: update state checkpoint -->
+<!-- debug: validation checkpoint -->
