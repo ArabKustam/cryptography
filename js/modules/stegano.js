@@ -165,3 +165,4 @@ const steganoModule = {
         document.getElementById('stegano-input').value = '';
     }
 };
+
