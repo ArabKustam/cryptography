@@ -455,4 +455,4 @@ const spectroModule = {
         document.getElementById('spectro-decode-result').style.display = 'none';
         document.getElementById('spectro-wav-input').value = '';
     }
-}; 
+};
