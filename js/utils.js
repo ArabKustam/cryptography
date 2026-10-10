@@ -26,3 +26,4 @@ window.CryptoUtils = {
     }
 };
 
+// debug: validation checkpoint
