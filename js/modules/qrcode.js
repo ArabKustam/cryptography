@@ -266,4 +266,4 @@ const qrModule = {
         this.qrCode.download({ name: name, extension: ext });
     }
 };
-// debug: validation checkpoint
+// perf: small loop optimization
