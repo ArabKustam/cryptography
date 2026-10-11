@@ -99,4 +99,3 @@ MIT License — свободное использование, модифика�
   Made with ❤️ using vanilla JavaScript
 </p>
 
-<!-- sync: update state checkpoint -->
