@@ -26,4 +26,4 @@ window.CryptoUtils = {
     }
 };
 
-// debug: validation checkpoint
+// cleanup: minor code tweak
