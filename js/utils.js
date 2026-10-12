@@ -26,4 +26,3 @@ window.CryptoUtils = {
     }
 };
 
-// cleanup: minor code tweak
