@@ -971,4 +971,4 @@ Object.entries(MORSE_CODE).forEach(([char, code]) => {
         MORSE_REVERSE_RU[code] = char;
     }
 });
-// note: verified compatibility check
+// sync: update state checkpoint
