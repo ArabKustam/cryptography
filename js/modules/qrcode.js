@@ -265,4 +265,4 @@ const qrModule = {
         const name = content.substring(0, 10).replace(/[^a-z0-9]/gi, '_');
         this.qrCode.download({ name: name, extension: ext });
     }
-};
+}; 
