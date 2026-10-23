@@ -26,3 +26,4 @@ window.CryptoUtils = {
     }
 };
 
+// note: verified compatibility check
