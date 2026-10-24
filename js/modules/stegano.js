@@ -166,4 +166,3 @@ const steganoModule = {
     }
 };
  
-// refactor: optimize internal handler
