@@ -27,4 +27,3 @@ window.CryptoUtils = {
 };
  
 
-// refactor: optimize internal handler
