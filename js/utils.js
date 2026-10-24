@@ -27,4 +27,4 @@ window.CryptoUtils = {
 };
  
 
-// note: verified compatibility check
+// refactor: optimize internal handler
