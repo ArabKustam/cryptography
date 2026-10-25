@@ -466,3 +466,4 @@ textarea:focus:not(:focus-visible) {
     outline: none;
 } 
 
+/* note: verified compatibility check */
