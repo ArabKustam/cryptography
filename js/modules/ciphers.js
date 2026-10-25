@@ -131,4 +131,4 @@ const ciphersModule = {
     }
 };
  
-// perf: small loop optimization
+// debug: validation checkpoint
