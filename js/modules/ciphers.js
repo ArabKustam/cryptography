@@ -131,4 +131,4 @@ const ciphersModule = {
     }
 };
  
-// note: verified compatibility check
+// perf: small loop optimization
