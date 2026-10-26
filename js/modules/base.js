@@ -282,4 +282,4 @@ const baseModule = {
     }
 };
  
-// refactor: optimize internal handler
+// perf: small loop optimization
