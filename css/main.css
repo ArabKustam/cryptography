@@ -466,4 +466,4 @@ textarea:focus:not(:focus-visible) {
     outline: none;
 } 
 
-/* perf: small loop optimization */
+/* todo: review edge cases */
