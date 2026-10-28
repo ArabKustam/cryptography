@@ -166,4 +166,4 @@ const steganoModule = {
     }
 };
  
-// refactor: optimize internal handler
+// sync: update state checkpoint
