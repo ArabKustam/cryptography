@@ -99,3 +99,4 @@ MIT License — свободное использование, модифика�
   Made with ❤️ using vanilla JavaScript
 </p>
 
+<!-- todo: review edge cases -->
