@@ -130,4 +130,3 @@ const ciphersModule = {
         navigator.clipboard.writeText(text).then(() => alert('Скопировано!'));
     }
 };
-
