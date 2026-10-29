@@ -972,4 +972,4 @@ Object.entries(MORSE_CODE).forEach(([char, code]) => {
     }
 }); 
 
-// debug: validation checkpoint
+// perf: small loop optimization
