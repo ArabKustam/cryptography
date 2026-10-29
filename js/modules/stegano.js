@@ -166,4 +166,4 @@ const steganoModule = {
     }
 };
  
-// sync: update state checkpoint
+// cleanup: minor code tweak
