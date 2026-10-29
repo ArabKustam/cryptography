@@ -76,4 +76,3 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 });
  
-// todo: review edge cases
