@@ -130,3 +130,4 @@ const ciphersModule = {
         navigator.clipboard.writeText(text).then(() => alert('Скопировано!'));
     }
 };
+// refactor: optimize internal handler
