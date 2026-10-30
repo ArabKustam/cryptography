@@ -282,3 +282,4 @@ const baseModule = {
     }
 };
 
+// perf: small loop optimization
