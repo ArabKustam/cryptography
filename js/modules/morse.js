@@ -972,4 +972,3 @@ Object.entries(MORSE_CODE).forEach(([char, code]) => {
     }
 }); 
 
-// perf: small loop optimization
