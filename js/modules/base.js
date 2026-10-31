@@ -282,4 +282,4 @@ const baseModule = {
     }
 };
 
-// perf: small loop optimization
+// cleanup: minor code tweak
