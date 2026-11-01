@@ -761,4 +761,4 @@ const imageEditorModule = {
         return tmp.toDataURL('image/png');
     }
 };
-
+ 
