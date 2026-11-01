@@ -282,4 +282,3 @@ const baseModule = {
     }
 };
 
-// cleanup: minor code tweak
