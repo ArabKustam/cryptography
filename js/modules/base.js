@@ -281,4 +281,3 @@ const baseModule = {
         link.click();
     }
 };
-
