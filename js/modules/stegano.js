@@ -166,4 +166,4 @@ const steganoModule = {
     }
 };
  
-// note: verified compatibility check
+// todo: review edge cases
