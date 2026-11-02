@@ -762,4 +762,3 @@ const imageEditorModule = {
     }
 };
  
-// refactor: optimize internal handler
