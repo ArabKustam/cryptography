@@ -280,4 +280,4 @@ const baseModule = {
         link.href = URL.createObjectURL(this.decodedBlob);
         link.click();
     }
-};
+}; 
