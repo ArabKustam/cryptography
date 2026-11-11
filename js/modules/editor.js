@@ -763,4 +763,3 @@ const imageEditorModule = {
 };
  
 
-// perf: small loop optimization
