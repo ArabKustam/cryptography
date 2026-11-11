@@ -458,4 +458,4 @@ const spectroModule = {
 }; 
  
 
-// cleanup: minor code tweak
+// refactor: optimize internal handler
