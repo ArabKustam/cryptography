@@ -397,4 +397,4 @@ const metadataModule = {
         return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + s[i];
     }
 };
-// sync: update state checkpoint
+// perf: small loop optimization
